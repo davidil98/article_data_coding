@@ -1,4 +1,4 @@
-from code_functions.data_txt_pull import data_pull
+import spectrum_data_loader as sdl
 import os
 import matplotlib.pyplot as plt
 import pandas as pd
@@ -18,7 +18,7 @@ def plot_pl_time(ax):
     for file_name in files_list:
         file_path = os.path.join(folder, file_name)
 
-        longitud_onda, intensidad = data_pull(file_path)
+        longitud_onda, intensidad = sdl.load_xy_data(file_path)
 
         data_dic = {
             'Longitud de onda': longitud_onda,
@@ -66,7 +66,7 @@ def plot_ir_nitrites (axs):
 
     for file in files:
         file_path = os.path.join(home, file)
-        num_de_onda, transmitancia = data_pull(file_path)
+        num_de_onda, transmitancia = sdl.load_xy_data(file_path)
         
         data = {
             'Número de onda': num_de_onda,

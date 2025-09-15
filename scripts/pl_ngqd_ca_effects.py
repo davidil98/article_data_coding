@@ -4,7 +4,7 @@ import pandas as pd
 import matplotlib.image as mpimg
 import matplotlib.colors as mcolors
 import matplotlib.cm as cm
-from code_functions.data_txt_pull import data_pull
+import spectrum_data_loader as sdl
 
 # --- FUNCIÓN 1: GRÁFICO DE EFECTO DE LAMBDA DE EXCITACIÓN ---
 def plot_lambda_ex(ax):
@@ -26,7 +26,7 @@ def plot_lambda_ex(ax):
     for n, file_name in enumerate(files_list):
         if n < len(lambda_ex_list): # Asegurarse de no exceder la lista de lambdas
             file_path = os.path.join(folder, file_name)
-            longitud_onda, intensidad = data_pull(file_path)
+            longitud_onda, intensidad = sdl.load_xy_data(file_path)
             
             color_ex = cmap(norm(lambda_ex_list[n]))
             ax.plot(longitud_onda, intensidad, 
@@ -66,7 +66,7 @@ def plot_dilutions(ax):
         folder_path = os.path.join(home, data_folder_name)
         if not os.path.isdir(folder_path): continue
         
-        dfs_list = [pd.DataFrame(zip(*data_pull(os.path.join(folder_path, fn))), columns=['Longitud de onda', 'Intensidad']) for fn in os.listdir(folder_path)]
+        dfs_list = [pd.DataFrame(zip(*sdl.load_xy_data(os.path.join(folder_path, fn))), columns=['Longitud de onda', 'Intensidad']) for fn in os.listdir(folder_path)]
         if not dfs_list: continue
 
         df_concat = pd.concat(dfs_list)
@@ -123,7 +123,7 @@ def plot_ph_effects(ax_line, ax_bar):
     for n, file_name in enumerate(files_list):
         if n < len(pH_nums):
             file_path = os.path.join(folder, file_name)
-            longitud_onda, intensidad = data_pull(file_path)
+            longitud_onda, intensidad = sdl.load_xy_data(file_path)
             df = pd.DataFrame({'Longitud de onda': longitud_onda, 'Intensidad': intensidad})
             
             current_ph = pH_nums[n]

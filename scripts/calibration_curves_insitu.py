@@ -1,4 +1,4 @@
-from code_functions.data_txt_pull import data_pull
+import spectrum_data_loader as sdl
 import os
 import matplotlib.pyplot as plt
 import pandas as pd
@@ -21,7 +21,7 @@ for folder_name in folders_names_list:
 
     for file_name in file_name_list:
         file_path = os.path.join(folder_path, file_name)
-        longitud_onda, intensidad = data_pull(file_path)
+        longitud_onda, intensidad = sdl.load_xy_data(file_path)
         df = pd.DataFrame({'Longitud de onda': longitud_onda, 'Intensidad': intensidad})
         dfs_list.append(df)
         df_filtered_em = df[(df['Longitud de onda'] >= 395) & (df['Longitud de onda'] <= 650)]

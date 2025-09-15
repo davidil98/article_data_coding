@@ -1,4 +1,4 @@
-from code_functions.data_txt_pull import data_pull
+import spectrum_data_loader as sdl
 import os
 import matplotlib.pyplot as plt
 import pandas as pd
@@ -21,7 +21,7 @@ for file_name in file_name_list:
         file_path = os.path.join(home, file_name)
         
         # Leer los datos del espectro
-        longitud_onda, intensidad = data_pull(file_path)
+        longitud_onda, intensidad = sdl.load_xy_data(file_path)
         df = pd.DataFrame({'Wavelength': longitud_onda, 'Intensity': intensidad})
         # Encontrar la intensidad máxima en el rango de emisión
         df_filtered = df[(df['Wavelength'] >= 395) & (df['Wavelength'] <= 650)]

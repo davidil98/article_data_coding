@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 import os
 import pandas as pd
-from code_functions.data_txt_pull import data_pull
+import spectrum_data_loader as sdl
 
 home = os.path.join('datos_espectros', 'FT-IR')
 data_files = {
@@ -16,7 +16,7 @@ n = 0
 
 for ngqd_file, precursores_files in data_files.items():
     file_path_ngqd = os.path.join(home, ngqd_file)
-    num_onda, transmitancia = data_pull(file_path_ngqd)
+    num_onda, transmitancia = sdl.load_xy_data(file_path_ngqd)
     data = {
         'Número de onda': num_onda,
         'Transmitancia': transmitancia

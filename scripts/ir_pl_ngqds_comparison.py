@@ -1,4 +1,4 @@
-from code_functions.data_txt_pull import data_pull
+import spectrum_data_loader as sdl
 import os
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -31,7 +31,7 @@ def plot_ir(axs):
 
     for file_name in file_name_list:
         file_path = os.path.join(folder, file_name)
-        num_de_onda, transmitancia = data_pull(file_path)
+        num_de_onda, transmitancia = sdl.load_xy_data(file_path)
         
         data = {
             'Número de onda': num_de_onda,
@@ -157,7 +157,7 @@ def pl_plot(ax, fig):
 
         for file_ngqd in files_list:
             file_path = os.path.join(folder_path, file_ngqd)
-            longitud_onda, intensidad = data_pull(file_path)
+            longitud_onda, intensidad = sdl.load_xy_data(file_path)
             
             data_dic = {
                 'Longitud de onda': longitud_onda,

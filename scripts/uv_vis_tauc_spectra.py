@@ -1,13 +1,13 @@
 import os
 import pandas as pd
-from code_functions.data_txt_pull import data_pull
+import spectrum_data_loader as sdl
 import matplotlib.pyplot as plt
 import numpy as np
 
 home = os.path.join('datos_espectros', 'UV-Vis')
 file_path = os.path.join(home, 'ngqd_ca_uvvis.txt')
 
-longitud_onda, absorbancia = data_pull(file_path)
+longitud_onda, absorbancia = sdl.load_xy_data(file_path)
 
 data_dic = {
     'Longitud de onda': longitud_onda,
